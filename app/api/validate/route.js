@@ -89,10 +89,23 @@ export async function POST(request) {
         const phoneData = await phoneResponse.json();
 
         if (phoneData.status === 'ok' && phoneData.data) {
+          // Handle formatted - can be string or object with international/national keys
+          let formattedNumber = phone;
+          if (typeof phoneData.data.formatted === 'string') {
+            formattedNumber = phoneData.data.formatted;
+          } else if (phoneData.data.formatted?.international) {
+            formattedNumber = phoneData.data.formatted.international;
+          } else if (phoneData.data.international) {
+            formattedNumber = phoneData.data.international;
+          }
+
+          // If API returned formatted data, consider it valid
+          const isValid = phoneData.data.valid ?? phoneData.data.isValid ?? !!formattedNumber;
+
           results.phone = {
             number: phone,
-            valid: phoneData.data.valid || phoneData.data.isValid,
-            formatted: phoneData.data.formatted || phoneData.data.international,
+            valid: isValid,
+            formatted: formattedNumber,
             type: phoneData.data.type || phoneData.data.lineType || 'Unknown',
             carrier: phoneData.data.carrier || null
           };
