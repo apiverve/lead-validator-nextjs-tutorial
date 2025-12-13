@@ -1,0 +1,273 @@
+.main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #888;
+  font-size: 1.1rem;
+}
+
+/* Card */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+/* Input Group */
+.inputGroup {
+  margin-bottom: 20px;
+}
+
+.inputGroup label {
+  display: block;
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.inputGroup input,
+.inputGroup select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #e0e0e0;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.inputGroup input::placeholder {
+  color: #666;
+}
+
+.inputRow {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .inputRow {
+    flex-direction: column;
+  }
+}
+
+/* Validate Button */
+.validateBtn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.validateBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+}
+
+.validateBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Error */
+.error {
+  margin-top: 16px;
+  padding: 14px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 12px;
+  color: #f87171;
+  text-align: center;
+}
+
+/* Results */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Score Card */
+.scoreCard {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 32px;
+}
+
+.scoreCircle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid;
+}
+
+.scoreGood {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.scoreOk {
+  border-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.scoreBad {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.scoreValue {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.scoreInfo h2 {
+  font-size: 1.3rem;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.textGood { color: #10b981; }
+.textOk { color: #fbbf24; }
+.textBad { color: #ef4444; }
+
+/* Result Card */
+.resultCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.resultCard h3 {
+  font-size: 1rem;
+  color: #667eea;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resultGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 500px) {
+  .resultGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.resultItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resultLabel {
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resultValue {
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.badgeGood {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.badgeBad {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 48px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .scoreCard {
+    flex-direction: column;
+    text-align: center;
+  }
+}
