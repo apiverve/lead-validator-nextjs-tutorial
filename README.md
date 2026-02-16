@@ -1,6 +1,7 @@
 # Lead Validator | APIVerve API Tutorial
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Build](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
 [![Next.js](https://img.shields.io/badge/Next.js-14-000000)](package.json)
 [![React](https://img.shields.io/badge/React-18-61dafb)](package.json)
 [![APIVerve | Lead Validation](https://img.shields.io/badge/APIVerve-Lead_Validation-purple)](https://apiverve.com/marketplace?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial)
