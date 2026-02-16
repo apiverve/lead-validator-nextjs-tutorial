@@ -119,11 +119,17 @@ const phoneResponse = await fetch(
 ```json
 {
   "status": "ok",
+  "error": null,
   "data": {
-    "valid": true,
-    "email": "user@example.com",
-    "domain": "example.com",
-    "isDisposable": false
+    "email": "support@myspace.com",
+    "domain": "myspace.com",
+    "username": "support",
+    "isValid": true,
+    "isMxValid": true,
+    "isSmtpValid": true,
+    "isFreeEmail": false,
+    "isCompanyEmail": true,
+    "hasTypo": false
   }
 }
 ```
@@ -144,11 +150,17 @@ const phoneResponse = await fetch(
 ```json
 {
   "status": "ok",
+  "error": null,
   "data": {
-    "valid": true,
-    "formatted": "+1 555-123-4567",
-    "type": "mobile",
-    "carrier": "Verizon"
+    "country": "US",
+    "countrycode": 1,
+    "isvalid": true,
+    "type": "fixed_line_or_mobile",
+    "formatted": {
+      "international": "+1 816-555-1017",
+      "national": "(816) 555-1017",
+      "e164": "+18165551017"
+    }
   }
 }
 ```
