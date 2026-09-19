@@ -1,37 +1,32 @@
-# Lead Validator | APIVerve API Tutorial
+# Lead Validator | APIVerve Template
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Build](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
-[![Next.js](https://img.shields.io/badge/Next.js-14-000000)](package.json)
-[![React](https://img.shields.io/badge/React-18-61dafb)](package.json)
-[![APIVerve | Lead Validation](https://img.shields.io/badge/APIVerve-Lead_Validation-purple)](https://apiverve.com/marketplace?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial)
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000)](package.json)
+[![React](https://img.shields.io/badge/React-19-61dafb)](package.json)
+[![APIVerve | Email Validator](https://img.shields.io/badge/APIVerve-Email_Validator-purple)](https://apiverve.com/marketplace/emailvalidator?utm_source=github&utm_medium=template&utm_campaign=lead-validator-nextjs-tutorial)
+[![APIVerve | Phone Number Validator](https://img.shields.io/badge/APIVerve-Phone_Number_Validator-purple)](https://apiverve.com/marketplace/phonenumbervalidator?utm_source=github&utm_medium=template&utm_campaign=lead-validator-nextjs-tutorial)
 
-A powerful lead validation tool built with Next.js 14. Verify email addresses and phone numbers to qualify leads with a beautiful, modern UI and quality scoring.
+Score a lead before it reaches your CRM. Enter an email and a phone number and get a 0–100 quality score, with the reason behind it: throwaway inboxes, domains that can't receive mail, typos like `gmial.com`, shared `sales@` addresses, VoIP and temporary phone numbers.
 
-![Screenshot](https://raw.githubusercontent.com/apiverve/lead-validator-nextjs-tutorial/main/screenshot.jpg)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fapiverve%2Flead-validator-nextjs-tutorial&project-name=lead-validator&repository-name=lead-validator&env=APIVERVE_API_KEY&envDescription=Your%20APIVerve%20API%20key.%20Free%20to%20create%2C%20no%20card%20needed.&envLink=https%3A%2F%2Fdashboard.apiverve.com%2Fsignup%3Fapi%3Demailvalidator%26utm_source%3Dvercel%26utm_medium%3Dtemplate%26utm_campaign%3Dlead-validator-nextjs-tutorial)
 
----
-
-### Get Your Free API Key
-
-This tutorial requires an APIVerve API key. **[Sign up free](https://dashboard.apiverve.com?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial)** - no credit card required.
+![Lead Validator scoring a lead with a disposable, misspelled email](https://raw.githubusercontent.com/apiverve/lead-validator-nextjs-tutorial/main/screenshot.png)
 
 ---
 
-## Features
+### Get your free API key
 
-- Email validation (format, deliverability, disposable detection)
-- Phone number validation with carrier lookup
-- Multi-country phone support (10+ countries)
-- Lead quality score calculation
-- Beautiful glassmorphism UI design
-- Server-side API integration (secure)
-- Real-time validation feedback
-- Responsive mobile design
+This template needs an APIVerve API key. **[Sign up free](https://dashboard.apiverve.com/signup?api=emailvalidator&utm_source=github&utm_medium=template&utm_campaign=lead-validator-nextjs-tutorial)**, no credit card required.
 
-## Quick Start
+---
 
-1. **Clone this repository**
+## Deploy in one click
+
+Click **Deploy with Vercel** above. Vercel copies this repo to your GitHub account, asks for your `APIVERVE_API_KEY`, and gives you a live URL about a minute later.
+
+## Run it locally
+
+1. **Clone the repository**
    ```bash
    git clone https://github.com/apiverve/lead-validator-nextjs-tutorial.git
    cd lead-validator-nextjs-tutorial
@@ -43,192 +38,90 @@ This tutorial requires an APIVerve API key. **[Sign up free](https://dashboard.a
    ```
 
 3. **Add your API key**
-
-   Open `app/api/validate/route.js` and replace the placeholder:
-   ```javascript
-   const API_KEY = 'your-api-key-here';
+   ```bash
+   cp .env.example .env.local
    ```
+   Then open `.env.local` and set `APIVERVE_API_KEY`.
 
 4. **Start the development server**
    ```bash
    npm run dev
    ```
 
-5. **Open in browser**
+5. **Open** `http://localhost:3000`
 
-   Navigate to `http://localhost:3000`
+## How it works
 
-## Project Structure
+1. The page posts the email, phone number and country to `/api/validate`.
+2. That route calls the Email Validator and Phone Number Validator at the same time. Your API key stays on the server and never reaches the browser.
+3. Each result becomes a list of checks, marked pass, check or fail.
+4. The checks add up to a score.
 
 ```
-lead-validator-nextjs-tutorial/
-├── app/
-│   ├── api/
-│   │   └── validate/
-│   │       └── route.js     # API route for validation
-│   ├── globals.css          # Global styles
-│   ├── layout.js            # Root layout
-│   ├── page.js              # Main page component
-│   └── page.module.css      # Page styles
-├── package.json             # Dependencies
-├── next.config.js           # Next.js configuration
-├── screenshot.jpg           # Preview image
-├── LICENSE                  # MIT license
-├── .gitignore               # Git ignore rules
-└── README.md                # This file
+app/
+├── api/validate/route.js   # Calls APIVerve, builds the checks and the score
+├── page.js                 # The form and the results
+├── page.module.css         # Styles
+├── layout.js
+└── globals.css
 ```
 
-## How It Works
-
-1. **User enters lead info** - Email and/or phone number
-2. **Form submission** - Data sent to API route
-3. **Parallel validation** - Email and phone validated simultaneously
-4. **Score calculation** - Quality score computed from results
-5. **Results display** - Visual feedback with detailed breakdown
-
-### The API Calls
+### The API calls
 
 ```javascript
-// Email Validation
-const emailResponse = await fetch(
-  `${EMAIL_API}?email=${encodeURIComponent(email)}`,
-  { headers: { 'x-api-key': API_KEY } }
+const res = await fetch(
+  `https://api.apiverve.com/v1/emailvalidator?email=${encodeURIComponent(email)}`,
+  { headers: { 'x-api-key': process.env.APIVERVE_API_KEY } }
 );
-
-// Phone Validation
-const phoneResponse = await fetch(
-  `${PHONE_API}?number=${encodeURIComponent(phone)}&country=${country}`,
-  { headers: { 'x-api-key': API_KEY } }
-);
+const { data } = await res.json();
+// data.isValid, data.isMxValid, data.isDisposable, data.hasTypo, data.isRoleAccount …
 ```
 
-## API Reference
+## Scoring
 
-### Email Validator
+Every lead starts at 100. A **fail** costs 40 points and a **check** costs 15.
 
-**Endpoint:** `GET https://api.apiverve.com/v1/emailvalidator`
+| Check | Fails when | Field |
+|-------|-----------|-------|
+| Deliverable | The address is invalid or its domain has no mail server | `isValid`, `isMxValid` |
+| Not disposable (email) | It's a throwaway inbox | `isDisposable` |
+| No typo | The domain looks misspelled (a *check*, not a fail) | `hasTypo` |
+| Personal inbox | It's a shared address like `info@` (a *check*) | `isRoleAccount` |
+| Valid number | The number isn't real for that country | `isValid` |
+| Not disposable (phone) | It's a temporary number | `isDisposable` |
+| Not VoIP | It's an internet number (a *check*) | `isVoip` |
 
-**Query Parameters:**
+**80–100** is a high quality lead, **50–79** is worth a second look, and **below 50** is low quality. Change the weights in `score()` in `app/api/validate/route.js`.
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `email` | string | Yes | Email address to validate |
+Every field above is on the free plan. On paid plans the page also shows APIVerve's own risk level, and typo checks suggest the corrected address.
 
-**Example Response:**
+## Before you share your URL
 
-```json
-{
-  "status": "ok",
-  "error": null,
-  "data": {
-    "email": "support@myspace.com",
-    "domain": "myspace.com",
-    "username": "support",
-    "isValid": true,
-    "isMxValid": true,
-    "isSmtpValid": true,
-    "isFreeEmail": false,
-    "isCompanyEmail": true,
-    "hasTypo": false
-  }
-}
-```
+Once deployed, anyone who finds your URL can run validations on your API key. The route allows 10 requests per minute per visitor, which is fine for a demo. The limit is kept in memory, so it isn't shared between serverless instances. For production:
 
-### Phone Number Validator
+- Put the form behind your own sign-in, or
+- Move the limit to a shared store such as [Upstash Redis](https://upstash.com/), or
+- Call `/api/validate` only from your own backend, for example when a signup form is submitted.
 
-**Endpoint:** `GET https://api.apiverve.com/v1/phonenumbervalidator`
+## Ideas to extend it
 
-**Query Parameters:**
+- Validate on your signup form and block disposable addresses before they're saved
+- Bulk-validate a CSV of leads
+- Send high-scoring leads straight to HubSpot or Salesforce
+- Add [IP Blacklist Lookup](https://apiverve.com/marketplace/ipblacklistlookup?utm_source=github&utm_medium=template&utm_campaign=lead-validator-nextjs-tutorial) to score the visitor's IP too
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `number` | string | Yes | Phone number to validate |
-| `country` | string | No | ISO country code (e.g., "US") |
+## API reference
 
-**Example Response:**
+- [Email Validator](https://apiverve.com/marketplace/emailvalidator?utm_source=github&utm_medium=template&utm_campaign=lead-validator-nextjs-tutorial): `GET https://api.apiverve.com/v1/emailvalidator?email=`
+- [Phone Number Validator](https://apiverve.com/marketplace/phonenumbervalidator?utm_source=github&utm_medium=template&utm_campaign=lead-validator-nextjs-tutorial): `GET https://api.apiverve.com/v1/phonenumbervalidator?number=&country=`
+- [Full documentation](https://docs.apiverve.com?utm_source=github&utm_medium=template&utm_campaign=lead-validator-nextjs-tutorial)
 
-```json
-{
-  "status": "ok",
-  "error": null,
-  "data": {
-    "country": "US",
-    "countrycode": 1,
-    "isvalid": true,
-    "type": "fixed_line_or_mobile",
-    "formatted": {
-      "international": "+1 816-555-1017",
-      "national": "(816) 555-1017",
-      "e164": "+18165551017"
-    }
-  }
-}
-```
+## Tech stack
 
-## Lead Quality Scoring
-
-The lead quality score is calculated based on:
-
-| Criteria | Impact |
-|----------|--------|
-| Valid email format | +50% |
-| Non-disposable email | +25% (included in email) |
-| Valid phone number | +50% |
-
-**Score Interpretation:**
-
-- **80-100:** High quality lead - prioritize outreach
-- **50-79:** Medium quality - verify manually
-- **0-49:** Low quality - requires review
-
-## Use Cases
-
-Lead validation is essential for:
-
-- **Sales Teams** - Qualify leads before outreach
-- **Marketing** - Clean email lists for campaigns
-- **SaaS Signups** - Verify new user registrations
-- **E-commerce** - Validate checkout information
-- **CRM Integration** - Enrich contact data
-- **Lead Generation** - Filter low-quality submissions
-
-## Customization Ideas
-
-- Add bulk validation for CSV uploads
-- Integrate with HubSpot, Salesforce, or other CRMs
-- Add more validation fields (address, company)
-- Create webhook notifications for new leads
-- Add lead scoring based on custom criteria
-- Export validation reports
-
-## Tech Stack
-
-- **Next.js 14** - React framework with App Router
-- **React 18** - UI library
-- **CSS Modules** - Scoped styling
-
-## Related APIs
-
-Explore more APIs at [APIVerve](https://apiverve.com/marketplace?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial):
-
-- [Email Validator](https://apiverve.com/marketplace/emailvalidator?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial) - Validate email addresses
-- [Phone Number Validator](https://apiverve.com/marketplace/phonenumbervalidator?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial) - Validate phone numbers
-- [Email Disposable Checker](https://apiverve.com/marketplace/emaildisposablechecker?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial) - Detect disposable emails
-
-## Free Plan Note
-
-This tutorial works with the free APIVerve plan. Some APIs may have:
-- **Locked fields**: Premium response fields return `null` on free plans
-- **Ignored parameters**: Some optional parameters require a paid plan
-
-The API response includes a `premium` object when limitations apply. [Upgrade anytime](https://dashboard.apiverve.com/plans) to unlock all features.
+- **Next.js 16** (App Router, route handlers)
+- **React 19**
+- **CSS Modules**
 
 ## License
 
-MIT - see [LICENSE](LICENSE)
-
-## Links
-
-- [Get API Key](https://dashboard.apiverve.com?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial) - Sign up free
-- [APIVerve Marketplace](https://apiverve.com/marketplace?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial) - Browse 300+ APIs
-- [Email Validator API](https://apiverve.com/marketplace/emailvalidator?utm_source=github&utm_medium=tutorial&utm_campaign=lead-validator-nextjs-tutorial) - API details
+MIT. See [LICENSE](LICENSE).

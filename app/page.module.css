@@ -193,34 +193,55 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.resultGrid {
+.resultSubject {
+  color: #e0e0e0;
+  font-weight: 400;
+  margin-left: 6px;
+  word-break: break-all;
+}
+
+.checks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.check {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: 64px 130px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.check .badge {
+  width: 100%;
+  padding: 4px 0;
+}
+
+.checkLabel {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+}
+
+.checkDetail {
+  font-size: 0.85rem;
+  color: #999;
 }
 
 @media (max-width: 500px) {
-  .resultGrid {
-    grid-template-columns: 1fr;
+  .check {
+    grid-template-columns: 64px 1fr;
+  }
+  .checkDetail {
+    grid-column: 2;
   }
 }
 
-.resultItem {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.resultLabel {
-  font-size: 0.8rem;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.resultValue {
-  font-size: 0.95rem;
-  color: #e0e0e0;
+.risk {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: #999;
 }
 
 /* Badge */
@@ -231,16 +252,27 @@
   font-size: 0.8rem;
   font-weight: 600;
   width: fit-content;
+  text-align: center;
 }
 
-.badgeGood {
+.badge_pass {
   background: rgba(16, 185, 129, 0.2);
   color: #10b981;
 }
 
-.badgeBad {
+.badge_warn {
+  background: rgba(251, 191, 36, 0.18);
+  color: #fbbf24;
+}
+
+.badge_fail {
   background: rgba(239, 68, 68, 0.2);
   color: #ef4444;
+}
+
+.badge_info {
+  background: rgba(255, 255, 255, 0.08);
+  color: #bbb;
 }
 
 /* Footer */

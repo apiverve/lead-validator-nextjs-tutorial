@@ -52,7 +52,7 @@ export default function Home() {
     <main className={styles.main}>
       <header className={styles.header}>
         <h1>Lead Validator</h1>
-        <p className={styles.subtitle}>Verify email and phone number validity</p>
+        <p className={styles.subtitle}>Score a lead from its email and phone number</p>
       </header>
 
       <div className={styles.card}>
@@ -109,7 +109,6 @@ export default function Home() {
       {/* Results */}
       {results && (
         <div className={styles.results}>
-          {/* Overall Score */}
           <div className={styles.scoreCard}>
             <div className={`${styles.scoreCircle} ${getScoreColor(results.score)}`}>
               <span className={styles.scoreValue}>{results.score}</span>
@@ -117,66 +116,13 @@ export default function Home() {
             <div className={styles.scoreInfo}>
               <h2>Lead Quality Score</h2>
               <p className={results.score >= 80 ? styles.textGood : results.score >= 50 ? styles.textOk : styles.textBad}>
-                {results.score >= 80 ? 'High Quality Lead' : results.score >= 50 ? 'Medium Quality Lead' : 'Low Quality Lead'}
+                {results.score >= 80 ? 'High quality lead' : results.score >= 50 ? 'Worth a second look' : 'Low quality lead'}
               </p>
             </div>
           </div>
 
-          {/* Email Results */}
-          {results.email && (
-            <div className={styles.resultCard}>
-              <h3>Email Validation</h3>
-              <div className={styles.resultGrid}>
-                <div className={styles.resultItem}>
-                  <span className={styles.resultLabel}>Email</span>
-                  <span className={styles.resultValue}>{results.email.email}</span>
-                </div>
-                <div className={styles.resultItem}>
-                  <span className={styles.resultLabel}>Valid Format</span>
-                  <span className={`${styles.badge} ${results.email.valid ? styles.badgeGood : styles.badgeBad}`}>
-                    {results.email.valid ? 'Yes' : 'No'}
-                  </span>
-                </div>
-                <div className={styles.resultItem}>
-                  <span className={styles.resultLabel}>Disposable</span>
-                  <span className={`${styles.badge} ${!results.email.disposable ? styles.badgeGood : styles.badgeBad}`}>
-                    {results.email.disposable ? 'Yes' : 'No'}
-                  </span>
-                </div>
-                <div className={styles.resultItem}>
-                  <span className={styles.resultLabel}>Domain</span>
-                  <span className={styles.resultValue}>{results.email.domain || '--'}</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Phone Results */}
-          {results.phone && (
-            <div className={styles.resultCard}>
-              <h3>Phone Validation</h3>
-              <div className={styles.resultGrid}>
-                <div className={styles.resultItem}>
-                  <span className={styles.resultLabel}>Number</span>
-                  <span className={styles.resultValue}>{results.phone.formatted || results.phone.number || phone}</span>
-                </div>
-                <div className={styles.resultItem}>
-                  <span className={styles.resultLabel}>Valid</span>
-                  <span className={`${styles.badge} ${results.phone.valid ? styles.badgeGood : styles.badgeBad}`}>
-                    {results.phone.valid ? 'Yes' : 'No'}
-                  </span>
-                </div>
-                <div className={styles.resultItem}>
-                  <span className={styles.resultLabel}>Type</span>
-                  <span className={styles.resultValue}>{results.phone.type || '--'}</span>
-                </div>
-                <div className={styles.resultItem}>
-                  <span className={styles.resultLabel}>Carrier</span>
-                  <span className={styles.resultValue}>{results.phone.carrier || '--'}</span>
-                </div>
-              </div>
-            </div>
-          )}
+          <ResultCard title="Email" result={results.email} />
+          <ResultCard title="Phone" result={results.phone} />
         </div>
       )}
 
@@ -193,5 +139,34 @@ export default function Home() {
         </p>
       </footer>
     </main>
+  );
+}
+
+const BADGE = { pass: 'Pass', warn: 'Check', fail: 'Fail', info: 'Info' };
+
+function ResultCard({ title, result }) {
+  if (!result) return null;
+  return (
+    <div className={styles.resultCard}>
+      <h3>
+        {title} <span className={styles.resultSubject}>{result.value}</span>
+      </h3>
+      {result.error ? (
+        <div className={styles.error}>{result.error}</div>
+      ) : (
+        <ul className={styles.checks}>
+          {result.checks.map((c) => (
+            <li key={c.label} className={styles.check}>
+              <span className={`${styles.badge} ${styles['badge_' + c.status]}`}>{BADGE[c.status]}</span>
+              <span className={styles.checkLabel}>{c.label}</span>
+              <span className={styles.checkDetail}>{c.detail}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {result.riskLevel ? (
+        <p className={styles.risk}>APIVerve risk level: <strong>{result.riskLevel}</strong></p>
+      ) : null}
+    </div>
   );
 }

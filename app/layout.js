@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Lead Validator | APIVerve Tutorial',
-  description: 'Validate leads with email and phone number verification'
+  title: 'Lead Validator',
+  description: 'Score leads by checking their email and phone number with APIVerve'
 };
 
 export default function RootLayout({ children }) {
